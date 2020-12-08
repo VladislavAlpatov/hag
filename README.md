@@ -1,0 +1,2 @@
+# hag
+Hugerain Account Generator
