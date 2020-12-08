@@ -1,4 +1,4 @@
 # hag
 Hugerain Account Generator
-## Downloadibg
+## Downloading
 You can download from [here](https://github.com/VladislavAlpatov/hag/releases)
