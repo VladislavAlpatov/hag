@@ -30,7 +30,7 @@ class MainWindow(Tk):
         data = requests.post('https://hugerain.net/app/includes/controller.php', headers=headers, data=payload).json()
 
         if data['status']:
-            self.StatusLabel.config(text="Generated", fg='green')
+            self.StatusLabel.config(text="Generated", fg='#00ff37')
 
             with open('accounts.txt', 'a') as f:
                 f.write(f"{payload['login']}:{payload['password']}\n")
@@ -38,7 +38,7 @@ class MainWindow(Tk):
                 self.clipboard_append(f"{payload['login']}:{payload['password']}")
 
         else:
-            self.StatusLabel.config(text="GENERATION ERROR!", fg='red')
+            self.StatusLabel.config(text="GENERATION ERROR!", fg='#f00')
 
     @staticmethod
     def __github():
