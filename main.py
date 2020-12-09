@@ -22,7 +22,7 @@ class MainWindow(Tk):
         self.geometry(geometry)
         self["bg"] = background
         self.resizable(0, 0)
-        self.StatusLabel = Label(self, text='NONE', font='Arial 12', bg=self.background, fg='white')
+        self.StatusLabel = Label(self, text='NONE', font='Arial 12', bg='#36516b', fg='white')
 
     def __register(self):
         headers = {'User-Agent': 'Mozilla/5.0'}
@@ -34,6 +34,7 @@ class MainWindow(Tk):
 
             with open('accounts.txt', 'a') as f:
                 f.write(f"{payload['login']}:{payload['password']}\n")
+                self.clipboard_clear()
                 self.clipboard_append(f"{payload['login']}:{payload['password']}")
 
         else:
@@ -48,31 +49,45 @@ class MainWindow(Tk):
         webbrowser.open('https://github.com/VladislavAlpatov/hag/wiki/FAQ')
 
     def run(self):
-        Label(self, text='HAG', font='Arial 20', bg=self.background, fg='white').pack()
-        Label(self, text='Hugerain Account Generator', font='System 12', bg=self.background, fg='white').pack()
-        Label(self, text='(С) Little Software Studio', font='System 8', bg=self.background, fg='white').place(x=115, y=212)
+        Label(self, text='Hugerain Account Generator', font='Roboto 12', bg='#0f9696', fg='white').pack()
+        Label(self, text='(С) Little Software Studio', font='Roboto 8', bg='#36516b', fg='white').place(x=125, y=222)
+        self.StatusLabel.pack()
 
         Button(self, text='Generate!',
-               bd=0, font='System', bg='#424242',
-               activebackground='#545454',
+               bd=2, font='Roboto',
+               bg=self.background,
+               fg='white',
+               activebackground='#0f9696',
                activeforeground='white',
-               command=self.__register).place(x=75, y=80, width=105)
+               command=self.__register,
+               highlightthickness=1,
+               highlightbackground="#0f9696",
+               relief='flat').place(x=75, y=85, width=105)
 
         Button(self, text='Github',
-               bd=0, font='System', bg='#424242',
-               activebackground='#545454',
+               bd=2, font='Roboto',
+               bg=self.background,
+               fg='white',
+               activebackground='#0f9696',
                activeforeground='white',
-               command=self.__github).place(x=75, y=118, width=105)
+               command=self.__github,
+               highlightthickness=1,
+               highlightbackground="#0f9696",
+               relief='flat').place(x=75, y=128, width=105)
 
         Button(self, text='FAQ',
-               bd=0, font='System', bg='#424242',
-               activebackground='#545454',
+               bd=2, font='Roboto',
+               bg=self.background,
+               fg='white',
+               activebackground='#0f9696',
+               command=self.__github_faq,
                activeforeground='white',
-               command=self.__github_faq).place(x=75, y=156, width=105)
+               highlightthickness=1,
+               highlightbackground="#0f9696",
+               relief='flat').place(x=75, y=172, width=105)
 
-        self.StatusLabel.pack()
         self.mainloop()
 
 
 if __name__ == '__main__':
-    MainWindow('HAG', '256x230', '#303030').run()
+    MainWindow('HAG', '256x240', '#22313f').run()
