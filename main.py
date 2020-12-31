@@ -25,20 +25,23 @@ class MainWindow(Tk):
         self.StatusLabel = Label(self, text='NONE', font='Arial 12', bg='#36516b', fg='white')
 
     def __register(self):
-        headers = {'User-Agent': 'Mozilla/5.0'}
-        payload = {'auth': '2', 'login': randstring(10), 'password': randstring(15)}
-        data = requests.post('https://hugerain.net/app/includes/controller.php', headers=headers, data=payload).json()
+        try:
+            headers = {'User-Agent': 'Mozilla/5.0'}
+            payload = {'auth': '2', 'login': randstring(10), 'password': randstring(15)}
+            data = requests.post('https://hugerain.net/app/includes/controller.php', headers=headers, data=payload).json()
 
-        if data['status']:
-            self.StatusLabel.config(text="Generated", fg='#00ff37')
+            if data['status']:
+                self.StatusLabel.config(text="Generated", fg='#00ff37')
 
-            with open('accounts.txt', 'a') as f:
-                f.write(f"{payload['login']}:{payload['password']}\n")
-                self.clipboard_clear()
-                self.clipboard_append(f"{payload['login']}:{payload['password']}")
+                with open('accounts.txt', 'a') as f:
+                    f.write(f"{payload['login']}:{payload['password']}\n")
+                    self.clipboard_clear()
+                    self.clipboard_append(f"{payload['login']}:{payload['password']}")
 
-        else:
-            self.StatusLabel.config(text="GENERATION ERROR!", fg='#f00')
+            else:
+                self.StatusLabel.config(text="GENERATION ERROR!", fg='#f00')
+        except requests.exceptions.ConnectionError:
+            self.StatusLabel.config(text="NO INTERNET CONNECTION!", fg='#f00')
 
     @staticmethod
     def __github():
@@ -50,7 +53,7 @@ class MainWindow(Tk):
 
     def run(self):
         Label(self, text='Hugerain Account Generator', font='Roboto 12', bg='#0f9696', fg='white').pack()
-        Label(self, text='(С) Little Software Studio', font='Roboto 8', bg='#36516b', fg='white').place(x=125, y=222)
+        Label(self, text='(С) Little Software Studio', font='Roboto 8', bg='#36516b', fg='white').place(x=128, y=222)
         self.StatusLabel.pack()
 
         Button(self, text='Generate!',
